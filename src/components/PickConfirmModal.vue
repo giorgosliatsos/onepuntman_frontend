@@ -3,7 +3,7 @@ import type { Player, Position } from '@/types'
 import { POSITION_COLORS } from '@/types'
 import { X, AlertTriangle, TrendingUp, Users, Banknote } from 'lucide-vue-next'
 
-const props = defineProps<{
+defineProps<{
   player: Player
   gameweek: number
 }>()
