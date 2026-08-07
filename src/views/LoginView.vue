@@ -55,7 +55,8 @@ async function handleForgotSubmit() {
   forgotMessage.value = null
 
   try {
-    forgotMessage.value = await authStore.requestPasswordReset(forgotEmail.value)
+    await authStore.requestPasswordReset(forgotEmail.value)
+    forgotMessage.value = 'Αν υπάρχει λογαριασμός με αυτό το email, θα λάβεις έναν σύνδεσμο επαναφοράς κωδικού.'
   }
   catch (error: any) {
     forgotMessage.value = error.response?.data?.message

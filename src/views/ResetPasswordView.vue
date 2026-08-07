@@ -36,7 +36,8 @@ async function handleSubmit() {
   submitting.value = true
 
   try {
-    successMessage.value = await authStore.resetPassword(token, newPassword.value)
+    await authStore.resetPassword(token, newPassword.value)
+    successMessage.value = 'Ο κωδικός πρόσβασής σου άλλαξε επιτυχώς.'
 
     setTimeout(() => router.push('/'), 2000)
   }
