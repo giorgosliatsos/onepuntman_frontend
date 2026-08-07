@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { Target, KeyRound, AlertCircle, CheckCircle } from 'lucide-vue-next'
+import { KeyRound, AlertCircle, CheckCircle } from 'lucide-vue-next'
 
 const route = useRoute()
 const router = useRouter()
@@ -54,9 +54,11 @@ async function handleSubmit() {
   <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
     <header class="px-4 sm:px-6 py-4">
       <div class="max-w-6xl mx-auto flex items-center gap-2 sm:gap-3">
-        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
-          <Target class="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-        </div>
+        <img
+          src="/logo.png"
+          alt="One Punt Man"
+          class="w-9 h-9 sm:w-11 sm:h-11 rounded-full object-cover object-[center_18%] ring-1 ring-slate-700/80 bg-slate-900"
+        />
         <span class="text-lg sm:text-xl font-bold text-white">One Punt Man</span>
       </div>
     </header>
