@@ -58,7 +58,7 @@ async function fetchUsers() {
     users.value = response.data
   }
   catch (err: any) {
-    usersError.value = err.response?.data?.message ?? 'Failed to load users'
+    usersError.value = err.response?.data?.message ?? 'Αποτυχία φόρτωσης χρηστών'
   }
   finally {
     usersLoading.value = false
@@ -74,7 +74,7 @@ async function toggleAllowed(user: AdminUser) {
     user.isAllowed = nextValue
   }
   catch (err: any) {
-    usersError.value = err.response?.data?.message ?? 'Failed to update user'
+    usersError.value = err.response?.data?.message ?? 'Αποτυχία ενημέρωσης χρήστη'
   }
   finally {
     savingUserId.value = null
@@ -91,7 +91,7 @@ async function generateResetLink(user: AdminUser) {
       `${window.location.origin}/reset-password?token=${response.data.token}`
   }
   catch (err: any) {
-    usersError.value = err.response?.data?.message ?? 'Failed to generate reset link'
+    usersError.value = err.response?.data?.message ?? 'Αποτυχία δημιουργίας συνδέσμου επαναφοράς'
   }
   finally {
     generatingLinkUserId.value = null
@@ -127,13 +127,13 @@ async function fetchPlayers() {
     const response = await api.post('/admin/fetch-players')
     fetchPlayersMessage.value = {
       type: 'success',
-      text: `Fetched ${response.data.playersFetched} players`
+      text: `Ανακτήθηκαν ${response.data.playersFetched} παίκτες`
     }
   }
   catch (err: any) {
     fetchPlayersMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to fetch players'
+      text: err.response?.data?.message ?? 'Αποτυχία ανάκτησης παικτών'
     }
   }
   finally {
@@ -149,13 +149,13 @@ async function lockGameweek() {
     const response = await api.post('/admin/set-gameweek')
     lockGameweekMessage.value = {
       type: 'success',
-      text: `Gameweek ${response.data.gameweekNumber} set — locked ownership for ${response.data.playersLocked} players`
+      text: `Ορίστηκε η gameweek ${response.data.gameweekNumber} — κλειδώθηκε το ownership για ${response.data.playersLocked} παίκτες`
     }
   }
   catch (err: any) {
     lockGameweekMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to set gameweek'
+      text: err.response?.data?.message ?? 'Αποτυχία ορισμού gameweek'
     }
   }
   finally {
@@ -171,13 +171,13 @@ async function renewScores() {
     const response = await api.post('/admin/renew-scores')
     renewScoresMessage.value = {
       type: 'success',
-      text: `Renewed scores for ${response.data.playersUpdated} players`
+      text: `Ανανεώθηκαν οι πόντοι για ${response.data.playersUpdated} παίκτες`
     }
   }
   catch (err: any) {
     renewScoresMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to renew scores'
+      text: err.response?.data?.message ?? 'Αποτυχία ανανέωσης πόντων'
     }
   }
   finally {
@@ -193,13 +193,13 @@ async function renewOwnership() {
     const response = await api.post('/admin/renew-ownership')
     renewOwnershipMessage.value = {
       type: 'success',
-      text: `Renewed ownership for ${response.data.playersUpdated} players`
+      text: `Ανανεώθηκε το ownership για ${response.data.playersUpdated} παίκτες`
     }
   }
   catch (err: any) {
     renewOwnershipMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to renew ownership'
+      text: err.response?.data?.message ?? 'Αποτυχία ανανέωσης του ownership'
     }
   }
   finally {
@@ -214,7 +214,7 @@ async function renewOwnership() {
       <!-- Header -->
       <div class="mb-8">
         <h1 class="text-3xl font-bold text-white mb-2">Admin</h1>
-        <p class="text-slate-400">Manage gameweek data and user access</p>
+        <p class="text-slate-400">Διαχείριση δεδομένων gameweek και πρόσβασης χρηστών</p>
       </div>
 
       <div class="space-y-6">
@@ -224,18 +224,18 @@ async function renewOwnership() {
             <div class="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center">
               <Download class="w-5 h-5 text-sky-400" />
             </div>
-            <h2 class="text-lg font-semibold text-white">Fetch Players</h2>
+            <h2 class="text-lg font-semibold text-white">Ανάκτηση Παικτών</h2>
           </div>
           <p class="text-sm text-slate-400 mb-4">
-            Refreshes player names, teams, photos, prices, points, and opponents from FPL.
-            Safe to run any time — never touches locked ownership.
+            Ανανεώνει ονόματα παικτών, ομάδες, φωτογραφίες, τιμές, πόντους και αντιπάλους από το FPL.
+            Ασφαλές να εκτελείται οποιαδήποτε στιγμή — δεν επηρεάζει ποτέ το κλειδωμένο ownership.
           </p>
           <button
             @click="fetchPlayers"
             :disabled="fetchingPlayers"
             class="bg-sky-500 hover:bg-sky-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
           >
-            {{ fetchingPlayers ? 'Fetching...' : 'Fetch Players' }}
+            {{ fetchingPlayers ? 'Ανάκτηση...' : 'Ανάκτηση Παικτών' }}
           </button>
 
           <div
@@ -259,19 +259,19 @@ async function renewOwnership() {
             <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
               <Lock class="w-5 h-5 text-amber-400" />
             </div>
-            <h2 class="text-lg font-semibold text-white">Set New Gameweek</h2>
+            <h2 class="text-lg font-semibold text-white">Ορισμός Νέας Gameweek</h2>
           </div>
           <p class="text-sm text-slate-400 mb-4">
-            Marks the current FPL gameweek as active and <strong class="text-slate-300">locks in every player's
-            ownership %</strong> right now. This locked snapshot is what decides who's under 5% and pickable —
-            live ownership changes on FPL afterward won't affect it until this runs again.
+            Ορίζει την τρέχουσα Gameweek του FPL ως ενεργή και <strong class="text-slate-300">κλειδώνει το
+            ownership % κάθε παίκτη</strong> αυτή τη στιγμή. Αυτό το κλειδωμένο στιγμιότυπο καθορίζει ποιοι είναι κάτω
+            από 5% και επιλέξιμοι — αλλαγές στο live ownership στο FPL αργότερα δεν θα το επηρεάσουν μέχρι να τρέξει ξανά.
           </p>
           <button
             @click="lockGameweek"
             :disabled="lockingGameweek"
             class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
           >
-            {{ lockingGameweek ? 'Locking...' : 'Set New Gameweek' }}
+            {{ lockingGameweek ? 'Κλείδωμα...' : 'Ορισμός Νέας Gameweek' }}
           </button>
 
           <div
@@ -295,18 +295,18 @@ async function renewOwnership() {
             <div class="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center">
               <RefreshCcw class="w-5 h-5 text-primary-400" />
             </div>
-            <h2 class="text-lg font-semibold text-white">Renew Scores</h2>
+            <h2 class="text-lg font-semibold text-white">Ανανέωση Πόντων</h2>
           </div>
           <p class="text-sm text-slate-400 mb-4">
-            Updates points for the current locked gameweek as matches are played.
-            Does not touch ownership — run this as often as you like during the gameweek.
+            Ενημερώνει τους πόντους για την τρέχουσα κλειδωμένη gameweek καθώς παίζονται οι αγώνες.
+            Δεν επηρεάζει το ownership — εκτελέστε το όσο συχνά θέλετε κατά τη διάρκεια της Gameweek.
           </p>
           <button
             @click="renewScores"
             :disabled="renewingScores"
             class="bg-primary-500 hover:bg-primary-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
           >
-            {{ renewingScores ? 'Renewing...' : 'Renew Scores' }}
+            {{ renewingScores ? 'Ανανέωση...' : 'Ανανέωση Πόντων' }}
           </button>
 
           <div
@@ -330,19 +330,19 @@ async function renewOwnership() {
             <div class="w-10 h-10 rounded-full bg-fuchsia-500/20 flex items-center justify-center">
               <Percent class="w-5 h-5 text-fuchsia-400" />
             </div>
-            <h2 class="text-lg font-semibold text-white">Renew Ownership</h2>
+            <h2 class="text-lg font-semibold text-white">Ανανέωση Ownership</h2>
           </div>
           <p class="text-sm text-slate-400 mb-4">
-            Re-locks ownership % for the current gameweek against live FPL data, without
-            changing which gameweek is active. Use this if ownership needs correcting
-            mid-gameweek — otherwise it stays locked until "Set New Gameweek" runs again.
+            Ξανακλειδώνει το ownership % για την τρέχουσα Gameweek βάσει live δεδομένων του FPL, χωρίς
+            να αλλάζει ποια gameweek είναι ενεργή. Χρησιμοποιήστε το αν χρειάζεται διόρθωση του ownership
+            εν μέσω Gameweek — διαφορετικά παραμένει κλειδωμένη μέχρι να τρέξει ξανά το "Ορισμός Νέας Gameweek".
           </p>
           <button
             @click="renewOwnership"
             :disabled="renewingOwnership"
             class="bg-fuchsia-500 hover:bg-fuchsia-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
           >
-            {{ renewingOwnership ? 'Renewing...' : 'Renew Ownership' }}
+            {{ renewingOwnership ? 'Ανανέωση...' : 'Ανανέωση Ownership' }}
           </button>
 
           <div
@@ -366,7 +366,7 @@ async function renewOwnership() {
             <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
               <Users class="w-5 h-5 text-emerald-400" />
             </div>
-            <h2 class="text-lg font-semibold text-white">Users</h2>
+            <h2 class="text-lg font-semibold text-white">Χρήστες</h2>
           </div>
 
           <div v-if="usersLoading" class="flex items-center justify-center py-10">
@@ -379,12 +379,12 @@ async function renewOwnership() {
               <table class="w-full text-sm">
                 <thead>
                   <tr class="text-left text-slate-400 border-b border-slate-700">
-                    <th class="pb-2 pr-4 font-medium">Username</th>
+                    <th class="pb-2 pr-4 font-medium">Όνομα χρήστη</th>
                     <th class="pb-2 pr-4 font-medium">Email</th>
-                    <th class="pb-2 pr-4 font-medium">Role</th>
-                    <th class="pb-2 pr-4 font-medium">Joined</th>
-                    <th class="pb-2 pr-4 font-medium">Password Reset</th>
-                    <th class="pb-2 font-medium text-right">Allowed</th>
+                    <th class="pb-2 pr-4 font-medium">Ρόλος</th>
+                    <th class="pb-2 pr-4 font-medium">Εγγραφή</th>
+                    <th class="pb-2 pr-4 font-medium">Επαναφορά Κωδικού</th>
+                    <th class="pb-2 font-medium text-right">Επιτρέπεται</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -400,7 +400,7 @@ async function renewOwnership() {
                         v-if="user.isAdmin"
                         class="text-xs bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded"
                       >
-                        Admin
+                        Διαχειριστής
                       </span>
                       <span v-else class="text-slate-500">—</span>
                     </td>
@@ -413,7 +413,7 @@ async function renewOwnership() {
                           v-if="user.passwordResetRequested"
                           class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded"
                         >
-                          Requested
+                          Αίτημα υποβλήθηκε
                         </span>
                         <button
                           @click="generateResetLink(user)"
@@ -421,7 +421,7 @@ async function renewOwnership() {
                           class="flex items-center gap-1 text-xs text-primary-400 hover:text-primary-300 disabled:opacity-50"
                         >
                           <KeyRound class="w-3 h-3" />
-                          {{ generatingLinkUserId === user.id ? 'Generating...' : 'Generate link' }}
+                          {{ generatingLinkUserId === user.id ? 'Δημιουργία...' : 'Δημιουργία συνδέσμου' }}
                         </button>
                         <div v-if="generatedLinks[user.id]" class="flex items-center gap-1">
                           <input
@@ -434,7 +434,7 @@ async function renewOwnership() {
                             @click="copyLink(user.id)"
                             class="text-xs text-primary-400 hover:text-primary-300 flex-shrink-0"
                           >
-                            {{ copiedUserId === user.id ? 'Copied!' : 'Copy' }}
+                            {{ copiedUserId === user.id ? 'Αντιγράφηκε!' : 'Αντιγραφή' }}
                           </button>
                         </div>
                       </div>
@@ -480,13 +480,13 @@ async function renewOwnership() {
                         v-if="user.isAdmin"
                         class="text-xs bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded flex-shrink-0"
                       >
-                        Admin
+                        Διαχειριστής
                       </span>
                       <span
                         v-if="user.passwordResetRequested"
                         class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded flex-shrink-0"
                       >
-                        Reset requested
+                        Αίτημα επαναφοράς
                       </span>
                     </div>
                     <p class="text-xs text-slate-400 truncate mt-0.5">{{ user.email }}</p>
@@ -523,19 +523,19 @@ async function renewOwnership() {
                   class="px-3 pb-3 pt-2 border-t border-slate-700/50 space-y-3 text-sm"
                 >
                   <div class="flex items-center justify-between">
-                    <span class="text-slate-400">Joined</span>
+                    <span class="text-slate-400">Εγγραφή</span>
                     <span class="text-slate-300">{{ new Date(user.createdAt).toLocaleDateString() }}</span>
                   </div>
 
                   <div class="flex items-center justify-between">
-                    <span class="text-slate-400">Password reset</span>
+                    <span class="text-slate-400">Επαναφορά κωδικού</span>
                     <button
                       @click="generateResetLink(user)"
                       :disabled="generatingLinkUserId === user.id"
                       class="flex items-center gap-1 text-xs text-primary-400 hover:text-primary-300 disabled:opacity-50"
                     >
                       <KeyRound class="w-3 h-3" />
-                      {{ generatingLinkUserId === user.id ? 'Generating...' : 'Generate link' }}
+                      {{ generatingLinkUserId === user.id ? 'Δημιουργία...' : 'Δημιουργία συνδέσμου' }}
                     </button>
                   </div>
 
@@ -550,7 +550,7 @@ async function renewOwnership() {
                       @click="copyLink(user.id)"
                       class="text-xs text-primary-400 hover:text-primary-300 flex-shrink-0"
                     >
-                      {{ copiedUserId === user.id ? 'Copied!' : 'Copy' }}
+                      {{ copiedUserId === user.id ? 'Αντιγράφηκε!' : 'Αντιγραφή' }}
                     </button>
                   </div>
                 </div>
@@ -558,7 +558,7 @@ async function renewOwnership() {
             </div>
 
             <div v-if="users.length === 0" class="text-center text-slate-400 py-8">
-              No users yet
+              Δεν υπάρχουν χρήστες ακόμη
             </div>
           </div>
 

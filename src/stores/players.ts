@@ -112,7 +112,7 @@ export const usePlayersStore = defineStore('players', () => {
 
       error.value =
         err.response?.data?.message ??
-        "Failed to load players"
+        "Αποτυχία φόρτωσης παικτών"
 
     }
     finally{

@@ -35,11 +35,11 @@ onMounted(async () => {
         <div class="w-16 h-16 rounded-2xl bg-amber-500/20 flex items-center justify-center mx-auto mb-6">
           <Lock class="w-8 h-8 text-amber-400" />
         </div>
-        <h1 class="text-2xl font-bold text-white mb-2">Not Open to You Yet</h1>
+        <h1 class="text-2xl font-bold text-white mb-2">Δεν Έχεις Ακόμη Πρόσβαση</h1>
         <p class="text-slate-400 mb-8">
-          One Punt Man is currently invite-only. Your account has been created, but an admin
-          needs to switch on your access before you can start picking.
-          Get in touch and we'll sort you out:
+          Το One Punt Man λειτουργεί προς το παρόν μόνο με πρόσκληση. Ο λογαριασμός σου έχει δημιουργηθεί, αλλά ένας διαχειριστής
+          πρέπει να ενεργοποιήσει την πρόσβασή σου πριν μπορέσεις να ξεκινήσεις τα picks σου.
+          Επικοινωνήστε μαζί μας και θα σας βοηθήσουμε:
         </p>
 
         <div class="space-y-3">
@@ -50,7 +50,7 @@ onMounted(async () => {
             class="flex items-center justify-center gap-2 w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 rounded-xl transition"
           >
             <Facebook class="w-4 h-4" />
-            Message us on Facebook
+            Στείλε μας μήνυμα στο Facebook
           </a>
 
           <a
@@ -60,7 +60,7 @@ onMounted(async () => {
             class="flex items-center justify-center gap-2 w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 rounded-xl transition"
           >
             <Instagram class="w-4 h-4" />
-            Message us on Instagram
+            Στείλε μας μήνυμα στο Instagram
           </a>
 
           <a
@@ -68,7 +68,7 @@ onMounted(async () => {
             class="flex items-center justify-center gap-2 w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 rounded-xl transition"
           >
             <Mail class="w-4 h-4" />
-            Email us
+            Στείλτε μας email
           </a>
         </div>
       </div>

@@ -21,9 +21,9 @@ onMounted(async () => {
     <div class="max-w-5xl mx-auto">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-white mb-2">League Standings</h1>
+        <h1 class="text-3xl font-bold text-white mb-2">Βαθμολογία</h1>
         <p class="text-slate-400">
-          See how your picks compare against other managers
+          Δες ποιος ειναι ο Puntοκράτωρ!
         </p>
       </div>
 
@@ -35,13 +35,13 @@ onMounted(async () => {
       <!-- Error State -->
       <div v-else-if="standingsStore.error" class="bg-red-500/20 border border-red-500/30 rounded-xl p-6 text-center">
         <AlertCircle class="w-12 h-12 text-red-400 mx-auto mb-4" />
-        <h3 class="text-xl font-semibold text-white mb-2">Failed to load standings</h3>
+        <h3 class="text-xl font-semibold text-white mb-2">Αποτυχία φόρτωσης κατάταξης</h3>
         <p class="text-slate-400 mb-4">{{ standingsStore.error }}</p>
         <button
           @click="standingsStore.fetchStandings"
           class="bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-2 rounded-lg transition-colors"
         >
-          Try Again
+          Δοκίμασε Ξανά
         </button>
       </div>
 
@@ -57,7 +57,7 @@ onMounted(async () => {
               />
               <div>
                 <h2 class="text-xl font-bold text-white">{{ standingsStore.currentUserStanding.username }}</h2>
-                <p class="text-slate-400">Your current standing</p>
+                <p class="text-slate-400">Η τρέχουσα θέση σας</p>
               </div>
             </div>
 
@@ -67,15 +67,15 @@ onMounted(async () => {
                   <Trophy class="w-5 h-5 text-amber-400" />
                   <span class="text-3xl font-bold text-white">{{ standingsStore.currentUserRank || '-' }}</span>
                 </div>
-                <span class="text-slate-400 text-sm">Rank</span>
+                <span class="text-slate-400 text-sm">Θέση</span>
               </div>
               <div class="text-center">
                 <div class="text-3xl font-bold text-primary-400">{{ standingsStore.currentUserStanding.totalPoints }}</div>
-                <span class="text-slate-400 text-sm">Total Points</span>
+                <span class="text-slate-400 text-sm">Σύνολο Πόντων</span>
               </div>
               <div class="text-center">
                 <div class="text-3xl font-bold text-white">{{ standingsStore.currentUserStanding.picks.length }}</div>
-                <span class="text-slate-400 text-sm">Picks Made</span>
+                <span class="text-slate-400 text-sm">Picks που Έγιναν</span>
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ onMounted(async () => {
             <div class="bg-slate-700/50 rounded-t-lg p-4 w-24 text-center">
               <Medal class="w-6 h-6 text-slate-300 mx-auto mb-1" />
               <div class="text-sm font-medium text-white truncate">{{ standingsStore.standings[1].username }}</div>
-              <div class="text-xs text-slate-400">{{ standingsStore.standings[1].totalPoints }} pts</div>
+              <div class="text-xs text-slate-400">{{ standingsStore.standings[1].totalPoints }} πόντοι</div>
             </div>
             <div class="bg-slate-600 h-16 w-24 rounded-b-lg"></div>
           </div>
@@ -108,7 +108,7 @@ onMounted(async () => {
             <div class="bg-gradient-to-b from-amber-500/30 to-amber-600/20 rounded-t-lg p-4 w-28 text-center">
               <Trophy class="w-8 h-8 text-amber-400 mx-auto mb-1" />
               <div class="text-sm font-semibold text-white truncate">{{ standingsStore.standings[0].username }}</div>
-              <div class="text-xs text-amber-300">{{ standingsStore.standings[0].totalPoints }} pts</div>
+              <div class="text-xs text-amber-300">{{ standingsStore.standings[0].totalPoints }} πόντοι</div>
             </div>
             <div class="bg-amber-500/40 h-24 w-28 rounded-b-lg"></div>
           </div>
@@ -123,7 +123,7 @@ onMounted(async () => {
             <div class="bg-slate-700/50 rounded-t-lg p-4 w-24 text-center">
               <Award class="w-6 h-6 text-amber-600 mx-auto mb-1" />
               <div class="text-sm font-medium text-white truncate">{{ standingsStore.standings[2].username }}</div>
-              <div class="text-xs text-slate-400">{{ standingsStore.standings[2].totalPoints }} pts</div>
+              <div class="text-xs text-slate-400">{{ standingsStore.standings[2].totalPoints }} πόντοι</div>
             </div>
             <div class="bg-slate-600 h-12 w-24 rounded-b-lg"></div>
           </div>

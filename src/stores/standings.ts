@@ -29,7 +29,7 @@ export const useStandingsStore = defineStore('standings', () => {
     }
     catch (err: any) {
       console.error(err)
-      error.value = err.response?.data?.message ?? 'Failed to load standings'
+      error.value = err.response?.data?.message ?? 'Αποτυχία φόρτωσης βαθμολογίας'
     }
     finally {
       loading.value = false

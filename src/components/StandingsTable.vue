@@ -47,18 +47,18 @@ function onShirtError(event: Event) {
   <div class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden">
     <!-- Table Header -->
     <div class="grid grid-cols-12 gap-4 px-4 py-3 bg-slate-800 border-b border-slate-700 text-sm font-medium text-slate-400">
-      <div class="col-span-1 text-center">Rank</div>
-      <div class="col-span-6 sm:col-span-5">Manager</div>
+      <div class="col-span-1 text-center">Θέση</div>
+      <div class="col-span-6 sm:col-span-5">Παίκτης</div>
       <div class="col-span-2 text-right">Picks</div>
-      <div class="col-span-2 sm:col-span-3 text-right">Total Points</div>
+      <div class="col-span-2 sm:col-span-3 text-right">Σύνολο Πόντων</div>
       <div class="col-span-1"></div>
     </div>
 
     <!-- Empty State -->
     <div v-if="standings.length === 0" class="px-6 py-12 text-center">
       <Trophy class="w-12 h-12 text-slate-600 mx-auto mb-4" />
-      <h3 class="text-lg font-medium text-white mb-2">No standings yet</h3>
-      <p class="text-slate-400">Be the first to make a pick!</p>
+      <h3 class="text-lg font-medium text-white mb-2">Δεν υπάρχει ακόμη κατάταξη</h3>
+      <p class="text-slate-400">Γίνετε ο πρώτος που θα κάνει μια επιλογή!</p>
     </div>
 
     <!-- Standings Rows (already sorted by points desc from the backend) -->
@@ -101,7 +101,7 @@ function onShirtError(event: Event) {
                 v-if="entry.userId === authStore.user?.id"
                 class="text-xs bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded"
               >
-                You
+                Εσύ
               </span>
             </div>
           </div>

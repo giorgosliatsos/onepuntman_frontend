@@ -42,12 +42,12 @@ async function saveUsername() {
 
   try {
     await authStore.updateUsername(usernameInput.value)
-    usernameMessage.value = { type: 'success', text: 'Username updated' }
+    usernameMessage.value = { type: 'success', text: 'Το όνομα χρήστη ενημερώθηκε' }
   }
   catch (err: any) {
     usernameMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to update username'
+      text: err.response?.data?.message ?? 'Αποτυχία ενημέρωσης ονόματος χρήστη'
     }
   }
   finally {
@@ -59,7 +59,7 @@ async function savePassword() {
   passwordMessage.value = null
 
   if (newPassword.value !== confirmPassword.value) {
-    passwordMessage.value = { type: 'error', text: 'New passwords do not match' }
+    passwordMessage.value = { type: 'error', text: 'Οι νέοι κωδικοί δεν ταιριάζουν' }
     return
   }
 
@@ -67,7 +67,7 @@ async function savePassword() {
 
   try {
     await authStore.changePassword(currentPassword.value, newPassword.value)
-    passwordMessage.value = { type: 'success', text: 'Password updated' }
+    passwordMessage.value = { type: 'success', text: 'Ο κωδικός πρόσβασης ενημερώθηκε' }
     currentPassword.value = ''
     newPassword.value = ''
     confirmPassword.value = ''
@@ -75,7 +75,7 @@ async function savePassword() {
   catch (err: any) {
     passwordMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to update password'
+      text: err.response?.data?.message ?? 'Αποτυχία ενημέρωσης κωδικού πρόσβασης'
     }
   }
   finally {
@@ -94,13 +94,13 @@ async function toggleNotifications() {
     await authStore.updateNotifications(nextValue)
     notificationsMessage.value = {
       type: 'success',
-      text: nextValue ? 'Gameweek email notifications turned on' : 'Gameweek email notifications turned off'
+      text: nextValue ? 'Οι ειδοποιήσεις email gameweek ενεργοποιήθηκαν' : 'Οι ειδοποιήσεις email gameweek απενεργοποιήθηκαν'
     }
   }
   catch (err: any) {
     notificationsMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to update notification settings'
+      text: err.response?.data?.message ?? 'Αποτυχία ενημέρωσης ρυθμίσεων ειδοποιήσεων'
     }
   }
   finally {
@@ -121,12 +121,12 @@ async function onFileSelected(event: Event) {
 
   try {
     await authStore.uploadProfileImage(file)
-    imageMessage.value = { type: 'success', text: 'Profile picture updated' }
+    imageMessage.value = { type: 'success', text: 'Η φωτογραφία προφίλ ενημερώθηκε' }
   }
   catch (err: any) {
     imageMessage.value = {
       type: 'error',
-      text: err.response?.data?.message ?? 'Failed to upload image'
+      text: err.response?.data?.message ?? 'Αποτυχία μεταφόρτωσης εικόνας'
     }
   }
   finally {
@@ -141,14 +141,14 @@ async function onFileSelected(event: Event) {
     <div class="max-w-2xl mx-auto">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-white mb-2">Profile Settings</h1>
-        <p class="text-slate-400">Manage your account details and profile picture</p>
+        <h1 class="text-3xl font-bold text-white mb-2">Ρυθμίσεις Προφίλ</h1>
+        <p class="text-slate-400">Διαχειριστείτε τα στοιχεία του λογαριασμού σας και τη φωτογραφία προφίλ</p>
       </div>
 
       <div v-if="authStore.user" class="space-y-6">
         <!-- Access Status -->
         <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-          <h2 class="text-lg font-semibold text-white mb-4">Game Access</h2>
+          <h2 class="text-lg font-semibold text-white mb-4">Πρόσβαση στο Παιχνίδι</h2>
 
           <div class="flex items-center gap-3">
             <div
@@ -162,12 +162,12 @@ async function onFileSelected(event: Event) {
             </div>
             <div>
               <div class="text-white font-medium">
-                <span v-if="authStore.user.isAllowed">Active</span>
-                <span v-else>Not yet enabled</span>
+                <span v-if="authStore.user.isAllowed">Ενεργή</span>
+                <span v-else>Δεν έχει ενεργοποιηθεί ακόμη</span>
               </div>
               <p class="text-sm text-slate-400">
-                <span v-if="authStore.user.isAllowed">You have full access to the game</span>
-                <span v-else>An admin needs to switch on your access — reach out on Facebook, Instagram, or email</span>
+                <span v-if="authStore.user.isAllowed">Έχετε πλήρη πρόσβαση στο παιχνίδι</span>
+                <span v-else>Ένας διαχειριστής πρέπει να ενεργοποιήσει την πρόσβασή σας — επικοινωνήστε μέσω Facebook, Instagram ή email</span>
               </p>
             </div>
           </div>
@@ -175,7 +175,7 @@ async function onFileSelected(event: Event) {
 
         <!-- Notifications -->
         <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-          <h2 class="text-lg font-semibold text-white mb-4">Notifications</h2>
+          <h2 class="text-lg font-semibold text-white mb-4">Ειδοποιήσεις</h2>
 
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
@@ -185,7 +185,7 @@ async function onFileSelected(event: Event) {
               <div>
                 <div class="text-white font-medium">Gameweek Emails</div>
                 <p class="text-sm text-slate-400">
-                  Get an email when a new gameweek goes live, so you don't miss making your pick
+                  Λάβετε ένα email όταν ενεργοποιείται νέα gameweek, ώστε να μη χάσετε την επιλογή σας
                 </p>
               </div>
             </div>
@@ -224,7 +224,7 @@ async function onFileSelected(event: Event) {
 
         <!-- Profile Picture -->
         <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-          <h2 class="text-lg font-semibold text-white mb-4">Profile Picture</h2>
+          <h2 class="text-lg font-semibold text-white mb-4">Φωτογραφία Προφίλ</h2>
 
           <div class="flex items-center gap-6">
             <div class="relative">
@@ -248,9 +248,9 @@ async function onFileSelected(event: Event) {
                 class="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
               >
                 <Camera class="w-4 h-4" />
-                Change Picture
+                Αλλαγή Φωτογραφίας
               </button>
-              <p class="text-xs text-slate-500 mt-2">JPEG, PNG, WEBP or GIF. Max 5MB.</p>
+              <p class="text-xs text-slate-500 mt-2">JPEG, PNG, WEBP ή GIF. Μέγιστο 5MB.</p>
 
               <input
                 ref="fileInput"
@@ -279,13 +279,13 @@ async function onFileSelected(event: Event) {
 
         <!-- Username -->
         <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-          <h2 class="text-lg font-semibold text-white mb-4">Username</h2>
+          <h2 class="text-lg font-semibold text-white mb-4">Όνομα Χρήστη</h2>
 
           <div class="flex flex-col sm:flex-row gap-3">
             <input
               v-model="usernameInput"
               type="text"
-              placeholder="Username"
+              placeholder="Όνομα χρήστη"
               class="flex-1 bg-slate-900 border border-slate-700 text-white placeholder-slate-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
             <button
@@ -293,7 +293,7 @@ async function onFileSelected(event: Event) {
               :disabled="usernameSaving || !usernameInput.trim()"
               class="bg-primary-500 hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-xl transition-colors disabled:opacity-50"
             >
-              {{ usernameSaving ? 'Saving...' : 'Save' }}
+              {{ usernameSaving ? 'Αποθήκευση...' : 'Αποθήκευση' }}
             </button>
           </div>
 
@@ -314,25 +314,25 @@ async function onFileSelected(event: Event) {
 
         <!-- Change Password -->
         <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-          <h2 class="text-lg font-semibold text-white mb-4">Change Password</h2>
+          <h2 class="text-lg font-semibold text-white mb-4">Αλλαγή Κωδικού Πρόσβασης</h2>
 
           <div class="space-y-3">
             <input
               v-model="currentPassword"
               type="password"
-              placeholder="Current password"
+              placeholder="Τρέχων κωδικός πρόσβασης"
               class="w-full bg-slate-900 border border-slate-700 text-white placeholder-slate-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
             <input
               v-model="newPassword"
               type="password"
-              placeholder="New password"
+              placeholder="Νέος κωδικός πρόσβασης"
               class="w-full bg-slate-900 border border-slate-700 text-white placeholder-slate-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
             <input
               v-model="confirmPassword"
               type="password"
-              placeholder="Confirm new password"
+              placeholder="Επιβεβαίωση νέου κωδικού πρόσβασης"
               class="w-full bg-slate-900 border border-slate-700 text-white placeholder-slate-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
 
@@ -341,7 +341,7 @@ async function onFileSelected(event: Event) {
               :disabled="passwordSaving || !currentPassword || !newPassword"
               class="w-full bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 rounded-xl transition-colors disabled:opacity-50"
             >
-              {{ passwordSaving ? 'Saving...' : 'Update Password' }}
+              {{ passwordSaving ? 'Αποθήκευση...' : 'Ενημέρωση Κωδικού' }}
             </button>
           </div>
 

@@ -42,7 +42,7 @@ function onPhotoError(event: Event) {
       <div class="relative bg-slate-800 rounded-2xl border border-slate-700 shadow-2xl max-w-md w-full overflow-hidden">
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-slate-700">
-          <h3 class="text-lg font-semibold text-white">Confirm Your Pick</h3>
+          <h3 class="text-lg font-semibold text-white">Επιβεβαίωση Επιλογής</h3>
           <button
             @click="emit('cancel')"
             class="text-slate-400 hover:text-white transition-colors"
@@ -88,21 +88,21 @@ function onPhotoError(event: Event) {
                   <TrendingUp class="w-4 h-4" />
                   <span class="font-bold">{{ player.totalPoints }}</span>
                 </div>
-                <div class="text-xs text-slate-400">Points</div>
+                <div class="text-xs text-slate-400">Πόντοι</div>
               </div>
               <div class="text-center">
                 <div class="flex items-center justify-center gap-1 text-amber-400">
                   <Banknote class="w-4 h-4" />
                   <span class="font-bold">{{ formatPrice(player.nowCost) }}</span>
                 </div>
-                <div class="text-xs text-slate-400">Price</div>
+                <div class="text-xs text-slate-400">Τιμή</div>
               </div>
               <div class="text-center">
                 <div class="flex items-center justify-center gap-1 text-sky-400">
                   <Users class="w-4 h-4" />
                   <span class="font-bold">{{ player.ownership }}%</span>
                 </div>
-                <div class="text-xs text-slate-400">Owned</div>
+                <div class="text-xs text-slate-400">Ownership</div>
               </div>
             </div>
           </div>
@@ -113,8 +113,8 @@ function onPhotoError(event: Event) {
               <AlertTriangle class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
               <div>
                 <p class="text-amber-200 text-sm">
-                  This will be your pick for <strong>Gameweek {{ gameweek }}</strong>. 
-                  You cannot change your pick after confirmation.
+                  Αυτό θα είναι το pick σου για τη <strong>Gameweek {{ gameweek }}</strong>.
+                  Δεν μπορείς να αλλάξεις το pick σου μετά την επιβεβαίωση.
                 </p>
               </div>
             </div>
@@ -126,13 +126,13 @@ function onPhotoError(event: Event) {
               @click="emit('cancel')"
               class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 px-4 rounded-xl transition-colors"
             >
-              Cancel
+              Ακύρωση
             </button>
             <button
               @click="emit('confirm')"
               class="flex-1 bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-4 rounded-xl transition-colors"
             >
-              Confirm Pick
+              Επιβεβαίωση Επιλογής
             </button>
           </div>
         </div>

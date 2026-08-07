@@ -19,17 +19,17 @@ async function handleSubmit() {
   errorMessage.value = null
 
   if (!token) {
-    errorMessage.value = 'This reset link is missing its token — ask an admin for a new one.'
+    errorMessage.value = 'Αυτός ο σύνδεσμος επαναφοράς δεν έχει token — ζήτησε από έναν διαχειριστή έναν νέο.'
     return
   }
 
   if (newPassword.value.length < 6) {
-    errorMessage.value = 'New password must be at least 6 characters'
+    errorMessage.value = 'Ο νέος κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες'
     return
   }
 
   if (newPassword.value !== confirmPassword.value) {
-    errorMessage.value = 'Passwords do not match'
+    errorMessage.value = 'Οι κωδικοί δεν ταιριάζουν'
     return
   }
 
@@ -42,7 +42,7 @@ async function handleSubmit() {
   }
   catch (error: any) {
     errorMessage.value = error.response?.data?.message
-      ?? 'Something went wrong. Please try again.'
+      ?? 'Κάτι πήγε στραβά. Παρακαλώ δοκίμασε ξανά.'
   }
   finally {
     submitting.value = false
@@ -68,7 +68,7 @@ async function handleSubmit() {
         </div>
 
         <h2 class="text-2xl font-bold text-white text-center mb-6">
-          Set a New Password
+          Ορισμός Νέου Κωδικού Πρόσβασης
         </h2>
 
         <template v-if="!successMessage">
@@ -76,7 +76,7 @@ async function handleSubmit() {
             <input
               v-model="newPassword"
               type="password"
-              placeholder="New password"
+              placeholder="Νέος κωδικός πρόσβασης"
               class="
                 w-full
                 bg-slate-900
@@ -98,7 +98,7 @@ async function handleSubmit() {
             <input
               v-model="confirmPassword"
               type="password"
-              placeholder="Confirm new password"
+              placeholder="Επιβεβαίωση νέου κωδικού πρόσβασης"
               class="
                 w-full
                 bg-slate-900
@@ -142,7 +142,7 @@ async function handleSubmit() {
               disabled:opacity-50
             "
           >
-            {{ submitting ? 'Resetting...' : 'Reset Password' }}
+            {{ submitting ? 'Επαναφορά...' : 'Επαναφορά Κωδικού' }}
           </button>
         </template>
 
@@ -151,7 +151,7 @@ async function handleSubmit() {
           class="flex items-center gap-2 text-sm rounded-lg px-3 py-3 bg-primary-500/20 text-primary-400"
         >
           <CheckCircle class="w-4 h-4 flex-shrink-0" />
-          <span>{{ successMessage }} Redirecting to login...</span>
+          <span>{{ successMessage }} Ανακατεύθυνση στη σύνδεση...</span>
         </div>
       </div>
     </main>

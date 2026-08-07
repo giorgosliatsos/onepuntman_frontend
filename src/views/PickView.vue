@@ -52,7 +52,7 @@ async function confirmPick() {
     setTimeout(() => pickSuccess.value = false, 3000)
   }
   catch (err: any) {
-    pickError.value = err.response?.data?.message ?? 'Failed to submit your pick'
+    pickError.value = err.response?.data?.message ?? 'Αποτυχία υποβολής του pick σου'
     setTimeout(() => pickError.value = null, 3000)
   }
   finally {
@@ -73,12 +73,12 @@ function cancelPick() {
       <div class="mb-4 sm:mb-8">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">Pick Your Differential</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">Κανε το pick σου</h1>
             <p v-if="currentGW !== null" class="text-sm sm:text-base text-slate-400">
-              Gameweek {{ currentGW }} - Select one player with &lt;5% ownership
+              Gameweek {{ currentGW }} - Θυμίσου ότι δεν πρέπει να εχει >5% ownership
             </p>
             <p v-else class="text-sm sm:text-base text-slate-400">
-              No active gameweek yet — check back soon
+              Δεν υπάρχει ακόμη ενεργή gameweek — έλεγξε ξανά σύντομα
             </p>
           </div>
 
@@ -86,7 +86,7 @@ function cancelPick() {
           <div v-if="hasPicked && currentPick" class="bg-primary-500/20 border border-primary-500/30 rounded-xl px-3 sm:px-4 py-2 sm:py-3">
             <div class="flex items-center gap-2 text-primary-400 text-sm sm:text-base">
               <CheckCircle class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-              <span class="font-medium">Your pick: {{ currentPick.playerName }}</span>
+              <span class="font-medium">Το pick σου: {{ currentPick.playerName }}</span>
             </div>
           </div>
 
@@ -94,7 +94,7 @@ function cancelPick() {
           <div v-else-if="isDeadlinePassed" class="bg-slate-700/50 border border-slate-600 rounded-xl px-3 sm:px-4 py-2 sm:py-3">
             <div class="flex items-center gap-2 text-slate-300 text-sm sm:text-base">
               <Lock class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-              <span class="font-medium">Picks are closed for this gameweek</span>
+              <span class="font-medium">Τα picks έκλεισαν για αυτή την gameweek</span>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ function cancelPick() {
       >
         <div v-if="pickSuccess" class="mb-4 sm:mb-6 bg-primary-500/20 border border-primary-500/30 rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 text-primary-400 text-sm sm:text-base">
           <CheckCircle class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-          <span>Pick confirmed! Good luck this gameweek.</span>
+          <span>Η επιλογή επιβεβαιώθηκε! Καλή τύχη σε αυτή την gameweek.</span>
         </div>
         <div v-else-if="pickError" class="mb-4 sm:mb-6 bg-red-500/20 border border-red-500/30 rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex items-center gap-2 text-red-400 text-sm sm:text-base">
           <AlertCircle class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
@@ -130,13 +130,13 @@ function cancelPick() {
       <!-- Error State -->
       <div v-else-if="playersStore.error" class="bg-red-500/20 border border-red-500/30 rounded-xl p-4 sm:p-6 text-center">
         <AlertCircle class="w-10 h-10 sm:w-12 sm:h-12 text-red-400 mx-auto mb-3 sm:mb-4" />
-        <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Failed to load players</h3>
+        <h3 class="text-lg sm:text-xl font-semibold text-white mb-2">Αποτυχία φόρτωσης παικτών</h3>
         <p class="text-sm sm:text-base text-slate-400 mb-4">{{ playersStore.error }}</p>
         <button
           @click="playersStore.fetchPlayers"
           class="bg-primary-500 hover:bg-primary-600 text-white font-medium px-5 sm:px-6 py-2 rounded-lg transition-colors text-sm sm:text-base"
         >
-          Try Again
+          Δοκίμασε Ξανά
         </button>
       </div>
 
@@ -150,7 +150,7 @@ function cancelPick() {
 
       <!-- Results Count -->
       <div v-if="!playersStore.loading && !playersStore.error" class="mt-3 sm:mt-4 text-slate-400 text-xs sm:text-sm">
-        Showing {{ playersStore.filteredPlayers.length }} players
+        Εμφανίζονται {{ playersStore.filteredPlayers.length }} παίκτες
       </div>
     </div>
 

@@ -2,7 +2,7 @@
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { getUserAvatarUrl } from '@/utils/avatar'
-import { Target, LogOut, CalendarDays, Trophy, ShieldCheck, Menu, X } from 'lucide-vue-next'
+import { LogOut, CalendarDays, Trophy, ShieldCheck, Menu, X } from 'lucide-vue-next'
 import { ref } from 'vue'
 
 const router = useRouter()
@@ -29,9 +29,11 @@ function navigateTo(path: string) {
         <div class="flex items-center justify-between h-14 sm:h-16">
           <!-- Logo -->
           <router-link to="/pick" class="flex items-center gap-2 sm:gap-3">
-            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
-              <Target class="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-            </div>
+            <img
+              src="/logo.png"
+              alt="One Punt Man"
+              class="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover object-[center_18%] ring-1 ring-slate-700/80 bg-slate-900"
+            />
             <span class="text-base sm:text-lg font-bold text-white">One Punt Man</span>
           </router-link>
 
@@ -47,7 +49,7 @@ function navigateTo(path: string) {
               ]"
             >
               <CalendarDays class="w-4 h-4" />
-              <span>Pick</span>
+              <span>Επιλογή</span>
             </router-link>
 
             <router-link
@@ -60,7 +62,7 @@ function navigateTo(path: string) {
               ]"
             >
               <Trophy class="w-4 h-4" />
-              <span>Standings</span>
+              <span>Κατάταξη</span>
             </router-link>
 
             <router-link
@@ -98,7 +100,7 @@ function navigateTo(path: string) {
               class="flex items-center gap-2 px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-700/50 rounded-lg transition-colors"
             >
               <LogOut class="w-4 h-4" />
-              <span class="hidden md:block">Logout</span>
+              <span class="hidden md:block">Αποσύνδεση</span>
             </button>
           </div>
 
@@ -137,7 +139,7 @@ function navigateTo(path: string) {
               />
               <div>
                 <div class="text-sm font-medium text-white">{{ authStore.user.username }}</div>
-                <div class="text-xs text-slate-400">View profile</div>
+                <div class="text-xs text-slate-400">Προβολή προφίλ</div>
               </div>
             </button>
 
@@ -152,20 +154,20 @@ function navigateTo(path: string) {
               ]"
             >
               <CalendarDays class="w-5 h-5" />
-              <span>Pick Player</span>
+              <span>Επιλογή Παίκτη</span>
             </button>
 
             <button
               @click="navigateTo('/standings')"
               :class="[
                 'flex items-center gap-3 w-full px-3 py-3 rounded-lg font-medium transition-colors',
-                route.path === '/standings' 
-                  ? 'bg-primary-500/20 text-primary-400' 
+                route.path === '/standings'
+                  ? 'bg-primary-500/20 text-primary-400'
                   : 'text-slate-300 active:bg-slate-700/50'
               ]"
             >
               <Trophy class="w-5 h-5" />
-              <span>Standings</span>
+              <span>Κατάταξη</span>
             </button>
 
             <button
@@ -187,7 +189,7 @@ function navigateTo(path: string) {
               class="flex items-center gap-3 w-full px-3 py-3 rounded-lg font-medium text-red-400 active:bg-slate-700/50 transition-colors"
             >
               <LogOut class="w-5 h-5" />
-              <span>Logout</span>
+              <span>Αποσύνδεση</span>
             </button>
           </div>
         </div>

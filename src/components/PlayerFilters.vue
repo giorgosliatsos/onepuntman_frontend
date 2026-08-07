@@ -16,10 +16,10 @@ const positions: { id: Position; name: string; color: string }[] = [
 
 const sortOptions = [
   { value: 'ownership', label: 'Ownership' },
-  { value: 'points', label: 'Total Points' },
-  { value: 'form', label: 'Form' },
-  { value: 'price', label: 'Price' },
-  { value: 'name', label: 'Name' },
+  { value: 'points', label: 'Σύνολο Πόντων' },
+  { value: 'form', label: 'Φόρμα' },
+  { value: 'price', label: 'Τιμή' },
+  { value: 'name', label: 'Όνομα' },
 ]
 </script>
 
@@ -32,7 +32,7 @@ const sortOptions = [
         <input
           v-model="playersStore.searchQuery"
           type="text"
-          placeholder="Search players..."
+          placeholder="Αναζήτηση παικτών..."
           class="w-full bg-slate-800 border border-slate-700 rounded-xl pl-12 pr-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         <button
@@ -54,7 +54,7 @@ const sortOptions = [
         ]"
       >
         <SlidersHorizontal class="w-5 h-5" />
-        <span class="hidden sm:block">Filters</span>
+        <span class="hidden sm:block">Φίλτρα</span>
       </button>
     </div>
 
@@ -71,12 +71,12 @@ const sortOptions = [
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <!-- Team Filter -->
           <div>
-            <label class="block text-sm font-medium text-slate-400 mb-2">Team</label>
+            <label class="block text-sm font-medium text-slate-400 mb-2">Ομάδα</label>
             <select
               v-model="playersStore.selectedTeam"
               class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
-              <option :value="null">All Teams</option>
+              <option :value="null">Όλες οι Ομάδες</option>
               <option v-for="team in playersStore.teams" :key="team.id" :value="team.id">
                 {{ team.name }}
               </option>
@@ -85,7 +85,7 @@ const sortOptions = [
 
           <!-- Position Filter -->
           <div>
-            <label class="block text-sm font-medium text-slate-400 mb-2">Position</label>
+            <label class="block text-sm font-medium text-slate-400 mb-2">Θέση</label>
             <div class="flex gap-2">
               <button
                 v-for="pos in positions"
@@ -105,7 +105,7 @@ const sortOptions = [
 
           <!-- Sort By -->
           <div>
-            <label class="block text-sm font-medium text-slate-400 mb-2">Sort By</label>
+            <label class="block text-sm font-medium text-slate-400 mb-2">Ταξινόμηση Κατά</label>
             <div class="flex gap-2">
               <select
                 v-model="playersStore.sortBy"
@@ -127,7 +127,7 @@ const sortOptions = [
           <!-- Max Ownership -->
           <div>
             <label class="block text-sm font-medium text-slate-400 mb-2">
-              Max Ownership: {{ playersStore.maxOwnership }}%
+              Μέγιστο Ownership: {{ playersStore.maxOwnership }}%
             </label>
             <input
               v-model.number="playersStore.maxOwnership"
@@ -146,7 +146,7 @@ const sortOptions = [
             @click="playersStore.clearFilters"
             class="text-sm text-slate-400 hover:text-white transition-colors"
           >
-            Clear all filters
+            Εκκαθάριση όλων των φίλτρων
           </button>
         </div>
       </div>

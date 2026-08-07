@@ -32,12 +32,12 @@ function onPhotoError(event: Event) {
   <div class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden">
     <!-- Table Header -->
     <div class="hidden md:grid md:grid-cols-12 gap-4 px-4 py-3 bg-slate-800 border-b border-slate-700 text-sm font-medium text-slate-400">
-      <div class="col-span-3">Player</div>
-      <div class="col-span-2">Position / Team</div>
-      <div class="col-span-1">Opponent</div>
-      <div class="col-span-1 text-right">Price</div>
-      <div class="col-span-1 text-right">Points</div>
-      <div class="col-span-1 text-right">Form</div>
+      <div class="col-span-3">Παίκτης</div>
+      <div class="col-span-2">Θέση / Ομάδα</div>
+      <div class="col-span-1">Αντίπαλος</div>
+      <div class="col-span-1 text-right">Τιμή</div>
+      <div class="col-span-1 text-right">Πόντοι</div>
+      <div class="col-span-1 text-right">Φόρμα</div>
       <div class="col-span-2 text-right">Ownership</div>
       <div class="col-span-1"></div>
     </div>
@@ -45,8 +45,8 @@ function onPhotoError(event: Event) {
     <!-- No Results -->
     <div v-if="players.length === 0" class="px-6 py-12 text-center">
       <Users class="w-12 h-12 text-slate-600 mx-auto mb-4" />
-      <h3 class="text-lg font-medium text-white mb-2">No players found</h3>
-      <p class="text-slate-400">Try adjusting your filters</p>
+      <h3 class="text-lg font-medium text-white mb-2">Δεν βρέθηκαν παίκτες</h3>
+      <p class="text-slate-400">Δοκίμασε να προσαρμόσεις τα φίλτρα σου</p>
     </div>
 
     <!-- Player Rows -->
@@ -158,9 +158,9 @@ function onPhotoError(event: Event) {
       <div class="col-span-2 md:hidden flex items-center gap-4 text-sm text-slate-400">
         <span class="flex items-center gap-1">
           <TrendingUp class="w-4 h-4" />
-          {{ player.totalPoints }} pts
+          {{ player.totalPoints }} πόντοι
         </span>
-        <span>Form: {{ player.form }}</span>
+        <span>Φόρμα: {{ player.form }}</span>
       </div>
     </div>
   </div>
