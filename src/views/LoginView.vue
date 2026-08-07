@@ -111,7 +111,7 @@ async function handleForgotSubmit() {
                 </span>
               </h1>
               <p class="text-base sm:text-xl text-slate-300 max-w-2xl leading-relaxed">
-                Ανταγωνίσου τους θαμώνες του FPL Basement για τον τίτλο του Puntοκράτωρα!
+                Ανταγωνίσου τους θαμώνες του FPL Basement για τον τίτλο του Puntοκράτωρα και μια υπογεγραμμένη φανέλα του Dango Ouattara!
               </p>
             </div>
 
