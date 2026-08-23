@@ -20,6 +20,9 @@ export const useAuthStore = defineStore("auth", () => {
   const token = ref<string | null>(
     localStorage.getItem("token")
   )
+  const refreshToken = ref<string | null>(
+    localStorage.getItem("refreshToken")
+  )
 
   const loading = ref(false)
 
@@ -69,12 +72,17 @@ export const useAuthStore = defineStore("auth", () => {
 
 
       token.value = response.data.token
+      refreshToken.value = response.data.refreshToken
 
       applyAuthResponse(response.data)
 
       localStorage.setItem(
         "token",
         response.data.token
+      )
+      localStorage.setItem(
+        "refreshToken",
+        response.data.refreshToken
       )
 
 
@@ -104,12 +112,17 @@ export const useAuthStore = defineStore("auth", () => {
 
 
     token.value = response.data.token
+    refreshToken.value = response.data.refreshToken
 
     applyAuthResponse(response.data)
 
     localStorage.setItem(
       "token",
       response.data.token
+    )
+    localStorage.setItem(
+      "refreshToken",
+      response.data.refreshToken
     )
 
 
@@ -120,10 +133,19 @@ export const useAuthStore = defineStore("auth", () => {
 
   function logout(){
 
+    // Best-effort — revoke the refresh token server-side so it can't be
+    // replayed later, but don't let a failed request block clearing local
+    // state.
+    if (refreshToken.value) {
+      api.post("/auth/logout", { refreshToken: refreshToken.value }).catch(() => {})
+    }
+
     token.value=null
+    refreshToken.value=null
     user.value=null
 
     localStorage.removeItem("token")
+    localStorage.removeItem("refreshToken")
     localStorage.removeItem("user")
   }
 
