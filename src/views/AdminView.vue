@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
 import AppLayout from '@/components/AppLayout.vue'
-import { Download, Lock, RefreshCcw, Percent, CheckCircle, AlertCircle, Users, ChevronDown, KeyRound } from 'lucide-vue-next'
+import { Download, Lock, RefreshCcw, Percent, CheckCircle, AlertCircle, Users, ChevronDown, KeyRound, AlertTriangle, X } from 'lucide-vue-next'
 
 type ActionMessage = { type: 'success' | 'error'; text: string } | null
 
@@ -21,6 +21,8 @@ const fetchPlayersMessage = ref<ActionMessage>(null)
 
 const lockingGameweek = ref(false)
 const lockGameweekMessage = ref<ActionMessage>(null)
+const gameweekInput = ref<string>('')
+const showLockConfirm = ref(false)
 
 const renewingScores = ref(false)
 const renewScoresMessage = ref<ActionMessage>(null)
@@ -141,12 +143,28 @@ async function fetchPlayers() {
   }
 }
 
+function openLockConfirm() {
+  lockGameweekMessage.value = null
+
+  if (!gameweekInput.value.trim()) {
+    lockGameweekMessage.value = {
+      type: 'error',
+      text: 'Συμπλήρωσε αριθμό gameweek'
+    }
+    return
+  }
+
+  showLockConfirm.value = true
+}
+
 async function lockGameweek() {
+  showLockConfirm.value = false
   lockGameweekMessage.value = null
   lockingGameweek.value = true
 
   try {
-    const response = await api.post('/admin/set-gameweek')
+    const gameweek = gameweekInput.value.trim()
+    const response = await api.post('/admin/set-gameweek', null, { params: { gameweek } })
     lockGameweekMessage.value = {
       type: 'success',
       text: `Ορίστηκε η gameweek ${response.data.gameweekNumber} — κλειδώθηκε το ownership για ${response.data.playersLocked} παίκτες`
@@ -266,13 +284,25 @@ async function renewOwnership() {
             ownership % κάθε παίκτη</strong> αυτή τη στιγμή. Αυτό το κλειδωμένο στιγμιότυπο καθορίζει ποιοι είναι κάτω
             από 5% και επιλέξιμοι — αλλαγές στο live ownership στο FPL αργότερα δεν θα το επηρεάσουν μέχρι να τρέξει ξανά.
           </p>
-          <button
-            @click="lockGameweek"
-            :disabled="lockingGameweek"
-            class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
-          >
-            {{ lockingGameweek ? 'Κλείδωμα...' : 'Ορισμός Νέας Gameweek' }}
-          </button>
+          <div class="flex items-center gap-3">
+            <input
+              v-model="gameweekInput"
+              type="number"
+              min="1"
+              placeholder="π.χ. 5"
+              class="w-28 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-500"
+            />
+            <button
+              @click="openLockConfirm"
+              :disabled="lockingGameweek"
+              class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
+            >
+              {{ lockingGameweek ? 'Κλείδωμα...' : 'Ορισμός Νέας Gameweek' }}
+            </button>
+          </div>
+          <p class="text-xs text-slate-500 mt-2">
+            Συμπλήρωσε τον αριθμό της gameweek που θέλεις να ορίσεις ως ενεργή και να κλειδώσεις.
+          </p>
 
           <div
             v-if="lockGameweekMessage"
@@ -572,5 +602,54 @@ async function renewOwnership() {
         </div>
       </div>
     </div>
+
+    <!-- Lock Gameweek Confirmation -->
+    <Teleport to="body">
+      <div v-if="showLockConfirm" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div
+          class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+          @click="showLockConfirm = false"
+        ></div>
+
+        <div class="relative bg-slate-800 rounded-2xl border border-slate-700 shadow-2xl max-w-md w-full overflow-hidden">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-slate-700">
+            <h3 class="text-lg font-semibold text-white">Επιβεβαίωση Κλειδώματος</h3>
+            <button
+              @click="showLockConfirm = false"
+              class="text-slate-400 hover:text-white transition-colors"
+            >
+              <X class="w-5 h-5" />
+            </button>
+          </div>
+
+          <div class="p-6">
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 mb-6">
+              <div class="flex items-start gap-3">
+                <AlertTriangle class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                <p class="text-amber-200 text-sm">
+                  Θα οριστεί η <strong>Gameweek {{ gameweekInput }}</strong> ως ενεργή και θα κλειδωθεί
+                  το ownership % κάθε παίκτη αυτή τη στιγμή. Αυτή η ενέργεια δεν αναιρείται.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <button
+                @click="showLockConfirm = false"
+                class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 px-4 rounded-xl transition-colors"
+              >
+                Ακύρωση
+              </button>
+              <button
+                @click="lockGameweek"
+                class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 px-4 rounded-xl transition-colors"
+              >
+                Κλείδωμα Gameweek
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </AppLayout>
 </template>
