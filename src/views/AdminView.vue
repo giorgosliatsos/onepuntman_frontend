@@ -146,7 +146,7 @@ async function fetchPlayers() {
 function openLockConfirm() {
   lockGameweekMessage.value = null
 
-  if (!gameweekInput.value.trim()) {
+  if (!String(gameweekInput.value).trim()) {
     lockGameweekMessage.value = {
       type: 'error',
       text: 'Συμπλήρωσε αριθμό gameweek'
@@ -163,7 +163,7 @@ async function lockGameweek() {
   lockingGameweek.value = true
 
   try {
-    const gameweek = gameweekInput.value.trim()
+    const gameweek = String(gameweekInput.value).trim()
     const response = await api.post('/admin/set-gameweek', null, { params: { gameweek } })
     lockGameweekMessage.value = {
       type: 'success',
