@@ -439,12 +439,6 @@ async function renewOwnership() {
                     </td>
                     <td class="py-3 pr-4">
                       <div class="flex flex-col items-start gap-1">
-                        <span
-                          v-if="user.passwordResetRequested"
-                          class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded"
-                        >
-                          Αίτημα υποβλήθηκε
-                        </span>
                         <button
                           @click="generateResetLink(user)"
                           :disabled="generatingLinkUserId === user.id"
@@ -511,12 +505,6 @@ async function renewOwnership() {
                         class="text-xs bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded flex-shrink-0"
                       >
                         Διαχειριστής
-                      </span>
-                      <span
-                        v-if="user.passwordResetRequested"
-                        class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded flex-shrink-0"
-                      >
-                        Αίτημα επαναφοράς
                       </span>
                     </div>
                     <p class="text-xs text-slate-400 truncate mt-0.5">{{ user.email }}</p>
