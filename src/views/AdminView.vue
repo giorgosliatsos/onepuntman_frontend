@@ -459,7 +459,6 @@ async function renewOwnership() {
               >
                 <div class="min-w-0">
                   <p class="text-white font-medium truncate">{{ user.username }}</p>
-                  <p class="text-xs text-slate-400 truncate">{{ user.email }}</p>
                 </div>
               </li>
             </ul>
