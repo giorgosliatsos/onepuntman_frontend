@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
 import AppLayout from '@/components/AppLayout.vue'
-import { Download, Lock, RefreshCcw, Percent, CheckCircle, AlertCircle, Users, ChevronDown, KeyRound, AlertTriangle, X } from 'lucide-vue-next'
+import { Download, Lock, RefreshCcw, Percent, CheckCircle, AlertCircle, Users, ChevronDown, KeyRound, AlertTriangle, X, UserX } from 'lucide-vue-next'
 
 type ActionMessage = { type: 'success' | 'error'; text: string } | null
 
@@ -14,6 +14,12 @@ interface AdminUser {
   isAdmin: boolean
   passwordResetRequested: boolean
   createdAt: string
+}
+
+interface MissingPickUser {
+  id: string
+  username: string
+  email: string
 }
 
 const fetchingPlayers = ref(false)
@@ -29,6 +35,11 @@ const renewScoresMessage = ref<ActionMessage>(null)
 
 const renewingOwnership = ref(false)
 const renewOwnershipMessage = ref<ActionMessage>(null)
+
+const missingPickUsers = ref<MissingPickUser[]>([])
+const missingPickUsersLoading = ref(false)
+const missingPickUsersError = ref<string | null>(null)
+const missingPickUsersLoaded = ref(false)
 
 const users = ref<AdminUser[]>([])
 const usersLoading = ref(false)
@@ -118,6 +129,23 @@ async function copyLink(userId: string) {
   catch {
     // Clipboard API can be unavailable outside a secure context — the link
     // is still shown in the field for the admin to select and copy by hand.
+  }
+}
+
+async function fetchMissingPickUsers() {
+  missingPickUsersLoading.value = true
+  missingPickUsersError.value = null
+
+  try {
+    const response = await api.get('/admin/users/missing-picks')
+    missingPickUsers.value = response.data
+    missingPickUsersLoaded.value = true
+  }
+  catch (err: any) {
+    missingPickUsersError.value = err.response?.data?.message ?? 'Αποτυχία φόρτωσης χρηστών χωρίς επιλογή'
+  }
+  finally {
+    missingPickUsersLoading.value = false
   }
 }
 
@@ -387,6 +415,54 @@ async function renewOwnership() {
             <CheckCircle v-if="renewOwnershipMessage.type === 'success'" class="w-4 h-4 flex-shrink-0" />
             <AlertCircle v-else class="w-4 h-4 flex-shrink-0" />
             <span>{{ renewOwnershipMessage.text }}</span>
+          </div>
+        </div>
+
+        <!-- Missing Picks -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-full bg-rose-500/20 flex items-center justify-center">
+              <UserX class="w-5 h-5 text-rose-400" />
+            </div>
+            <h2 class="text-lg font-semibold text-white">Χρήστες Χωρίς Επιλογή</h2>
+          </div>
+          <p class="text-sm text-slate-400 mb-4">
+            Δείχνει ποιοι επιτρεπόμενοι χρήστες δεν έχουν κάνει ακόμη differential pick για την τρέχουσα
+            κλειδωμένη Gameweek.
+          </p>
+          <button
+            @click="fetchMissingPickUsers"
+            :disabled="missingPickUsersLoading"
+            class="bg-rose-500 hover:bg-rose-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors disabled:opacity-50"
+          >
+            {{ missingPickUsersLoading ? 'Έλεγχος...' : 'Έλεγχος Χρηστών Χωρίς Επιλογή' }}
+          </button>
+
+          <div
+            v-if="missingPickUsersError"
+            class="mt-4 flex items-center gap-2 text-sm rounded-lg px-3 py-2 bg-red-500/20 text-red-400"
+          >
+            <AlertCircle class="w-4 h-4 flex-shrink-0" />
+            <span>{{ missingPickUsersError }}</span>
+          </div>
+
+          <div v-else-if="missingPickUsersLoaded" class="mt-4">
+            <div v-if="missingPickUsers.length === 0" class="flex items-center gap-2 text-sm rounded-lg px-3 py-2 bg-primary-500/20 text-primary-400">
+              <CheckCircle class="w-4 h-4 flex-shrink-0" />
+              <span>Όλοι οι επιτρεπόμενοι χρήστες έχουν κάνει την επιλογή τους</span>
+            </div>
+            <ul v-else class="divide-y divide-slate-700/50 border border-slate-700/50 rounded-lg overflow-hidden">
+              <li
+                v-for="user in missingPickUsers"
+                :key="user.id"
+                class="flex items-center justify-between gap-3 px-3 py-2.5"
+              >
+                <div class="min-w-0">
+                  <p class="text-white font-medium truncate">{{ user.username }}</p>
+                  <p class="text-xs text-slate-400 truncate">{{ user.email }}</p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
 
