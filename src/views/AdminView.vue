@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
 import AppLayout from '@/components/AppLayout.vue'
-import { Download, Lock, RefreshCcw, Percent, CheckCircle, AlertCircle, Users, ChevronDown, KeyRound, AlertTriangle, X, UserX } from 'lucide-vue-next'
+import { Download, Lock, RefreshCcw, CheckCircle, AlertCircle, Users, ChevronDown, KeyRound, AlertTriangle, X, UserX } from 'lucide-vue-next'
 
 type ActionMessage = { type: 'success' | 'error'; text: string } | null
 
@@ -33,8 +33,8 @@ const showLockConfirm = ref(false)
 const renewingScores = ref(false)
 const renewScoresMessage = ref<ActionMessage>(null)
 
-const renewingOwnership = ref(false)
-const renewOwnershipMessage = ref<ActionMessage>(null)
+// const renewingOwnership = ref(false)
+// const renewOwnershipMessage = ref<ActionMessage>(null)
 
 const missingPickUsers = ref<MissingPickUser[]>([])
 const missingPickUsersLoading = ref(false)
@@ -231,27 +231,27 @@ async function renewScores() {
   }
 }
 
-async function renewOwnership() {
-  renewOwnershipMessage.value = null
-  renewingOwnership.value = true
-
-  try {
-    const response = await api.post('/admin/renew-ownership')
-    renewOwnershipMessage.value = {
-      type: 'success',
-      text: `Ανανεώθηκε το ownership για ${response.data.playersUpdated} παίκτες`
-    }
-  }
-  catch (err: any) {
-    renewOwnershipMessage.value = {
-      type: 'error',
-      text: err.response?.data?.message ?? 'Αποτυχία ανανέωσης του ownership'
-    }
-  }
-  finally {
-    renewingOwnership.value = false
-  }
-}
+// async function renewOwnership() {
+//   renewOwnershipMessage.value = null
+//   renewingOwnership.value = true
+// 
+//   try {
+//     const response = await api.post('/admin/renew-ownership')
+//     renewOwnershipMessage.value = {
+//       type: 'success',
+//       text: `Ανανεώθηκε το ownership για ${response.data.playersUpdated} παίκτες`
+//     }
+//   }
+//   catch (err: any) {
+//     renewOwnershipMessage.value = {
+//       type: 'error',
+//       text: err.response?.data?.message ?? 'Αποτυχία ανανέωσης του ownership'
+//     }
+//   }
+//   finally {
+//     renewingOwnership.value = false
+//   }
+// }
 </script>
 
 <template>

@@ -48,9 +48,10 @@ function onShirtError(event: Event) {
     <!-- Table Header -->
     <div class="grid grid-cols-12 gap-4 px-4 py-3 bg-slate-800 border-b border-slate-700 text-sm font-medium text-slate-400">
       <div class="col-span-1 text-center">Θέση</div>
-      <div class="col-span-6 sm:col-span-5">Παίκτης</div>
-      <div class="col-span-2 text-right">Picks</div>
-      <div class="col-span-2 sm:col-span-3 text-right">Σύνολο Πόντων</div>
+      <div class="col-span-4">Παίκτης</div>
+      <div class="hidden sm:block sm:col-span-1 text-right">Picks</div>
+      <div class="col-span-4 sm:col-span-3 text-right">Μέση Ιδιοκτησία</div>
+      <div class="col-span-2 text-right">Σύνολο Πόντων</div>
       <div class="col-span-1"></div>
     </div>
 
@@ -88,7 +89,7 @@ function onShirtError(event: Event) {
         </div>
 
         <!-- Manager -->
-        <div class="col-span-6 sm:col-span-5 flex items-center gap-3">
+        <div class="col-span-4 flex items-center gap-3">
           <img
             :src="getUserAvatarUrl(entry)"
             :alt="entry.username"
@@ -108,12 +109,17 @@ function onShirtError(event: Event) {
         </div>
 
         <!-- Picks Count -->
-        <div class="col-span-2 text-right">
+        <div class="hidden sm:block sm:col-span-1 text-right">
           <span class="text-white">{{ entry.picks.length }}</span>
         </div>
 
+        <!-- Mean Ownership -->
+        <div class="col-span-4 sm:col-span-3 text-right">
+          <span class="text-slate-300">{{ entry.meanOwnership.toFixed(1) }}%</span>
+        </div>
+
         <!-- Total Points -->
-        <div class="col-span-2 sm:col-span-3 text-right">
+        <div class="col-span-2 text-right">
           <span class="text-xl font-bold text-primary-400">{{ entry.totalPoints }}</span>
         </div>
 

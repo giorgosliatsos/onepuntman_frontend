@@ -57,6 +57,7 @@ export interface UserStanding {
   username: string
   profileImageUrl: string | null
   totalPoints: number
+  meanOwnership: number
   picks: GameweekPick[]
 }
 
