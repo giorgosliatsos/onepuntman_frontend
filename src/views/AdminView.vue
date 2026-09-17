@@ -383,7 +383,7 @@ async function renewOwnership() {
         </div>
 
         <!-- Renew Ownership -->
-        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
+        <!-- <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
           <div class="flex items-center gap-3 mb-2">
             <div class="w-10 h-10 rounded-full bg-fuchsia-500/20 flex items-center justify-center">
               <Percent class="w-5 h-5 text-fuchsia-400" />
@@ -416,7 +416,7 @@ async function renewOwnership() {
             <AlertCircle v-else class="w-4 h-4 flex-shrink-0" />
             <span>{{ renewOwnershipMessage.text }}</span>
           </div>
-        </div>
+        </div> -->
 
         <!-- Missing Picks -->
         <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
